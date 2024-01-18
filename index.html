@@ -31,6 +31,10 @@
         <button class="btn btn-next">›</button>
         <button class="btn btn-prev">‹</button>
     </div>
+    <br>
+    <div style="text-align: center;">
+        <a style="font-family: 'Dancing Script'; font-size: 30px">January 6th 2024</a>
+    </div>
 </body>
 <style>
     @font-face {
@@ -66,7 +70,7 @@
     }
 
     body {
-        height: 100vh;
+        height: 30vh;
         display: grid;
         place-items: center;
     }
@@ -74,17 +78,15 @@
     .slider {
         width: 100%;
         max-width: 800px;
-        height: 450px;
+        height: 550px;
         position: relative;
         overflow: hidden;
-        /* <===  */
-        border-radius: 15px;
     }
 
     .slide {
         width: 100%;
         max-width: 800px;
-        height: 450px;
+        height: 550px;
         position: absolute;
         transition: all 0.5s;
     }
@@ -92,7 +94,7 @@
     .slide img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
     }
 
     .btn {
@@ -104,7 +106,7 @@
         border-radius: 50%;
         z-index: 10px;
         cursor: pointer;
-        background-color: #fff;
+        background-color: #e4e4e4;
         font-size: 18px;
     }
 
