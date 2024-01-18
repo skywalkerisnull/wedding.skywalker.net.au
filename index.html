@@ -138,42 +138,70 @@
     // select next slide button
     const nextSlide = document.querySelector(".btn-next");
 
+    // select previous slide button
+    const prevSlide = document.querySelector(".btn-prev");
+
+    // select slider element
+    const slider = document.querySelector(".slider");
+
     // current slide counter
     let curSlide = 0;
     // maximum number of slides
     let maxSlide = slides.length - 1;
 
-    // add event listener and navigation functionality
+    // add event listener and navigation functionality for next slide button
     nextSlide.addEventListener("click", function () {
-        // check if current slide is the last and reset current slide
         if (curSlide === maxSlide) {
             curSlide = 0;
         } else {
             curSlide++;
         }
 
-        //   move slide by -100%
         slides.forEach((slide, indx) => {
             slide.style.transform = `translateX(${100 * (indx - curSlide)}%)`;
         });
     });
 
-    // select next slide button
-    const prevSlide = document.querySelector(".btn-prev");
-
-    // add event listener and navigation functionality
+    // add event listener and navigation functionality for previous slide button
     prevSlide.addEventListener("click", function () {
-        // check if current slide is the first and reset current slide to last
         if (curSlide === 0) {
             curSlide = maxSlide;
         } else {
             curSlide--;
         }
 
-        //   move slide by 100%
         slides.forEach((slide, indx) => {
             slide.style.transform = `translateX(${100 * (indx - curSlide)}%)`;
         });
     });
 
+    // Variables to track touch start and end positions
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    // Attach touch event listeners
+    slider.addEventListener("touchstart", function (event) {
+        touchStartX = event.touches[0].clientX;
+    });
+
+    slider.addEventListener("touchend", function (event) {
+        touchEndX = event.changedTouches[0].clientX;
+        handleSwipe();
+    });
+
+    // Handle swipe or button press based on direction
+// Handle swipe or button press based on direction
+function handleSwipe(direction) {
+    let newSlide;
+    if (direction === "right" || (direction !== "left" && touchEndX > touchStartX)) {
+        newSlide = curSlide === 0 ? maxSlide : curSlide - 1;
+    } else {
+        newSlide = curSlide === maxSlide ? 0 : curSlide + 1;
+    }
+
+    slides[curSlide].style.transform = `translateX(${100 * (curSlide - newSlide)}%)`;
+    slides[newSlide].style.transform = `translateX(0)`;
+
+    curSlide = newSlide;
+}
 </script>
